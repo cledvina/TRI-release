@@ -18,8 +18,11 @@ while (<LINKS>) {
 	$chem =~ s/.+&chemical=(\w+).*/$1/;
 	$year =~ s/.+&YEAR=(\d+).*/$1/;
 	$fn =~ s/\W/_/g;
-	$fn = "${fn}_$year.$ext";
-	print "$i. Getting $url >  '$fn'\n\n";
-	getstore($url,"$data/$fn");
-	sleep 1;
+	$fn = "$data/${fn}_$year.$ext";
+	if (-e $fn) {
+		print "$fn already exists-- moving on...\n";
+		next;
+	}
+	print "$i. Getting $url > $fn\n\n";
+	getstore($url,$fn);
 }
