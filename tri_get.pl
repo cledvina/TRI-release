@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 use LWP::Simple;
+my $path = shift or die "Usage > tri_get.pl pathfile (html|csv)\n";
 my $ext = shift;
 if ($ext !~ /^(html|csv)$/) {
 	print "Please enter extension (html or csv)\n";
 	exit;
 }
-open LINKS, 'paths.txt' or die "Can't find paths.txt file!\n";
+open LINKS, $path or die "Can't find $path file!\n";
 my $data = '../data';
 my $i = 0;
 while (<LINKS>) {
