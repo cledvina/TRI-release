@@ -2,7 +2,7 @@
 use LWP::Simple;
 use LWP::Simple qw($ua get);
 $ua->agent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:29.0) Gecko/20100101 Firefox/29.0');
-$ua->timeout(5);
+#$ua->timeout(5);
 my $path = shift or die "Usage > tri_get.pl pathfile (html|csv)\n";
 my $ext = shift;
 if ($ext !~ /^(html|csv)$/) {
@@ -27,6 +27,8 @@ while (<LINKS>) {
 		print "$fn already exists-- moving on...\n";
 		next;
 	}
-	print "$i. Getting $url > $fn\n\n";
-	getstore($url,$fn);
+	print "\n$i. Getting $url > $fn\n\n";
+	# getstore($url,$fn);
+        `curl -o $fn "$url"`;
+	# `wget -O $fn '$url'`;
 }
